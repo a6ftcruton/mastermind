@@ -18,7 +18,7 @@ class SequenceGeneratorTest < Minitest::Test
 
   def test_it_contains_a_string
     sequence = SequenceGenerator.generate
-    assert sequence[0].is_a? String
+    assert sequence.all? {|i| i.is_a? String}
   end
 
   def test_its_contents_can_be_changed
@@ -30,9 +30,9 @@ class SequenceGeneratorTest < Minitest::Test
     refute initial_value == new_value, "Calling generate twice does not produce unique values."
   end
 
-  def test_it_holds_only_4_items
+  def test_it_holds_only_2_items
     sequence = SequenceGenerator.generate
-    assert_equal 4, sequence.length
+    assert_equal 2, sequence.length
   end
 
 
