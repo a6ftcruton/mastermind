@@ -30,9 +30,9 @@ class SequenceGeneratorTest < Minitest::Test
     refute initial_value == new_value, "Calling generate twice does not produce unique values."
   end
 
-  def test_it_holds_only_2_items
+  def test_it_holds_4_items
     sequence = SequenceGenerator.generate
-    assert_equal 2, sequence.length
+    assert_equal 4, sequence.length
   end
 
 

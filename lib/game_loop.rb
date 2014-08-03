@@ -36,7 +36,11 @@ class Game
   end
 
   def show_instructions
-    puts "Mastermind instructions go here."
+    puts "\n"
+    puts "Mastermind instructions go here." # read these in from text file?
+    puts "\n"
+    options
+    get_input
   end
 
   def initiate_game
@@ -64,7 +68,7 @@ class Game
     prompt_for_guess
       if @guess == ["q"]
         puts "\nGoodbye! Thanks for playing MASTERMIND!"
-      elsif @guess.length != 2 || !@guess.all? {|i| i.match(/r|g|b|y/)}
+      elsif @guess.length != 4 || !@guess.all? {|i| i.match(/r|g|b|y/)}
         puts "\nIncorrect input"
         run
       elsif @guess == @sequence
@@ -72,11 +76,12 @@ class Game
         finish = Time.new
         finish_min = finish.min
         finish_sec = finish.sec
+        puts "\n"
         puts "~".center(45, '~')
         puts " CORRECT! ".center(45, '~*~')
         puts "~".center(45, '~')
         puts "\nTotal Guesses" + "#{@guess_count}".rjust(30, '.')
-        puts "\nElapsed time" + "#{finish_min - @start_min} minutes and #{finish_min - @start_sec} seconds.".rjust(30, '.')
+        puts "\nElapsed time" + "#{finish_sec - @start_sec} seconds.".rjust(30, '.')
       else
         @guess_count += 1
         puts "\nWrong!"
