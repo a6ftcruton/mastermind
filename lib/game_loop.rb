@@ -1,4 +1,6 @@
 require_relative 'game_sequence_generator'
+require_relative 'guess_checker'
+require_relative 'game_instructions'
 
 class Game
 
@@ -7,8 +9,16 @@ class Game
     @guess_count = 0
   end
 
+  def layout(starter, design=starter)
+    puts ""
+    puts starter.center(80, design)
+    puts ""
+  end
+
   def greet_player
-    puts "\nWelcome to MASTERMIND!"
+    layout("=")
+    puts "Welcome to MASTERMIND!".center(80, " ")
+    layout("=")
   end
 
   def options
@@ -20,10 +30,10 @@ class Game
   end
 
   def get_input
-    printf "\nenter command: "
+    printf "\nEnter command: "
     input = gets.downcase.chomp
     case input
-    when 'i' then show_instructions
+    when 'i' then show_instructions # File.open('/data/instructions.txt')
     when 'q' then quit
     when 'p' then initiate_game
     else
@@ -32,76 +42,69 @@ class Game
               \n (p) = play
               \n (q) = quit"
       get_input
-    end
-  end
+    end # case
+  end # get_input
 
   def show_instructions
-    puts "\n"
-    puts "Mastermind instructions go here." # read these in from text file?
-    puts "\n"
+    @show_instructions = GameInstructions.load_instructions
+    @show_instructions
     options
     get_input
   end
 
-  def initiate_game
-    @sequence = SequenceGenerator.generate
-    start = Time.new
-    @start_min = start.min
-    @start_sec = start.sec
+  def initiate_game_instructions
     puts "\n I have generated a beginner sequence of four elements made up of:"
     puts "\n\t (r)ed, (g)reen, (b)lue, and (y)ellow."
     puts "\n\t Use (q)uit at any point to exit the game."
-    run
   end
-
 
   def prompt_for_guess
     printf "\nEnter your guess: "
     puts ""
-    @guess = gets.downcase
-                 .chomp
-                 .split(//)
+    @guess = gets.downcase.chomp.split(//)
+  end
+
+  def elapsed_time
+    @elapsed_time = (@time_finish - @time_start).to_i
+  end
+
+  def initiate_game
+    @sequence = SequenceGenerator.generate
+    @time_start = Time.new
+    initiate_game_instructions
+    run
   end
 
   def run
-    p @sequence
+    puts "\n\t\t\t" + "( #{@sequence} )"  # <= get rid of this when testing is complete!
     prompt_for_guess
       if @guess == ["q"]
         puts "\nGoodbye! Thanks for playing MASTERMIND!"
       elsif @guess.length != 4 || !@guess.all? {|i| i.match(/r|g|b|y/)}
-        puts "\nIncorrect input"
+        puts "\nIncorrect input: please enter only the following characters: r g b y. Do not use spaces or commas."
         run
       elsif @guess == @sequence
         @guess_count += 1
-        finish = Time.new
-        finish_min = finish.min
-        finish_sec = finish.sec
+        @time_finish = Time.new
         puts "\n"
-        puts "~".center(45, '~')
-        puts " CORRECT! ".center(45, '~*~')
-        puts "~".center(45, '~')
-        puts "\nTotal Guesses" + "#{@guess_count}".rjust(30, '.')
-        puts "\nElapsed time" + "#{finish_sec - @start_sec} seconds.".rjust(30, '.')
+        layout('~')
+        layout(" CORRECT! ", '~*~')
+        layout('~')
+        puts "\n\tTotal Guesses " + " #{@guess_count}".rjust(40, '.')
+        puts "\n\tElapsed time " + " #{elapsed_time} second(s).".rjust(40, '.')
+        layout('~')
+        puts "~".center(80, '~*~')
+        layout('~')
       else
         @guess_count += 1
-        puts "\nWrong!"
+        #pass guess to guess_checker
+        puts "\nIncorrect guess on attempt number #{@guess_count}!"
+        puts "\n"
+        guess_checker = GuessChecker.new(@guess, @sequence)
+        guess_checker.feedback
         run
       end # if/else
-
-    # case
-    # when @guess == ["q"] then quit
-    # when @guess.length != 1 || !@guess[0].match(/r|g|b|y/)
-    #   puts "\n\tIncorrect input"
-    #   prompt_for_guess
-    # when @guess == sequence then puts "\n\tYou WIN"
-    # else
-    #   guess_count += 1
-    #   puts "\n\tWrong!"
-    #   prompt_for_guess
-    # end # case @guess
-
   end # run
-
 end # end Game class
 
 game = Game.new("Jim")

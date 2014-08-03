@@ -1,12 +1,15 @@
 To do:
 
-- make real instructions -> import from CSV
+- refactor for DRY principle (any methods that should be combined?)
+- abstract classes out of game_loop that should stand on their own
+
+- get player name when game starts
+- refactor each condition of if/else into a separate method, then rewrite as a case statement that
+  calls the method e.g. 'case x then method_call'
+- import instructions from file (store instructions as their own class)
+- save player scores to file
 - call instructions for incorrect input
-- abstract instructions away into their own class
 - move from 1 to 2 items in guess array
-- fix output of time so there are no negative seconds
-  -record start and end only in secs
-  -include conditional ~ if elapsed time > 60 secs, convert to min/sec format
--remove 'puts sequence'
+- remove 'puts sequence'
 
 - GUESS CHECK ALGORITHM
