@@ -1,3 +1,5 @@
+require 'colorize'
+
 class GuessChecker
   attr_reader :guess, :sequence
 
@@ -25,10 +27,26 @@ class GuessChecker
     matches
   end
 
-  def feedback
-    puts "You guessed --> '#{guess.join}''"
-    puts "\n\tYou correctly matched #{matches_found} letter(s)."
-    puts "\n"
-    puts "\tYou have #{correct_color - matches_found} correct colors in incorrect positions."
+  def convert_guess
+    guess.map do |i|
+      case i
+      when "r" then i = "\u25A9".colorize(:red)
+      when "g" then i = "\u25A9".colorize(:green)
+      when "b" then i = "\u25A9".colorize(:blue)
+      when "y" then i = "\u25A9".colorize(:yellow)
+      end
+    end
   end
+
+  def feedback
+    puts "\n                   #{convert_guess.join(" ")}"
+    puts "             \u279A"
+    puts "You guessed "
+    puts "             \u2798"
+    puts "                   #{guess.join(" ")}"
+    puts "\n\n\tYou correctly matched " + "#{matches_found}".colorize(:white) + " color(s)."
+    puts "\n"
+    puts "\tYou have " + "#{correct_color - matches_found}".colorize(:white) + " correct colors in incorrect positions."
+  end
+
 end

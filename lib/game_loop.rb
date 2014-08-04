@@ -119,7 +119,7 @@ class Game
     printf "Please enter your first name: "
     player = gets.chomp.upcase
     thank_player = "\nThanks for playing #{player}!".upcase
-    thank_player.each_char {|c| puts c; sleep 0.1}
+    thank_player.each_char {|c| puts c.colorize(:white).blink; sleep 0.1}
     # give options = print hi-scores or quit
   end
 

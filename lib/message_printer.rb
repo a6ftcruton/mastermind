@@ -1,22 +1,22 @@
 class MessagePrinter
 
   def layout(element, design=element)
-    puts ""
+    puts " "
     puts element.center(80, design)
-    puts ""
+    puts " "
   end
 
   def greet_player
     layout("=")
-    puts "Welcome to MASTERMIND!".center(80, " ")
+    puts "Welcome to MASTERMIND!".center(80, " ").colorize(:white)
     layout("=")
   end
 
   def initiate_game_instructions
-    puts layout("-")
+    puts "-".center(80, "-").colorize(:white)
     puts "\n I have generated a beginner sequence of four elements made up of:"
-    puts "\n\t (r)ed, (g)reen, (b)lue, and (y)ellow."
-    puts "\n\t Use (q)uit at any point to exit the game."
+    puts "\n\t (r)".colorize(:red) + "ed," + "(g)".colorize(:green) + "reen," + "(b)".colorize(:blue) + "lue, and " + "(y)".colorize(:yellow) + "ellow."
+    puts "\n\t Use " + "(q)".colorize(:white) + "uit at any point to exit the game."
   end
 
   def request_guess
@@ -24,10 +24,11 @@ class MessagePrinter
   end
 
   def command_options
+    puts "-".center(80, '-').colorize(:white)
     puts "You may enter any of the following options:
-          \n (i) = instructions
-          \n (p) = play
-          \n (q) = quit"
+          \n " + "(i)".colorize(:white) + " = instructions
+          \n " + "(p)".colorize(:white) + " = play
+          \n " + "(q)".colorize(:white) + " = quit"
   end
 
   def quit
@@ -37,7 +38,7 @@ class MessagePrinter
   def win_message(guesses, time)
     puts "\n"
     layout('~')
-    layout(" CORRECT! ", '~*~')
+    puts" CORRECT! ".center(80, '~*~').colorize(:white).blink
     layout('~')
     puts guesses
     puts time
@@ -47,13 +48,13 @@ class MessagePrinter
   end
 
   def incorrect_guess(guess_number)
-    puts "\nIncorrect guess on attempt number #{guess_number}!"
+    puts "\nIncorrect guess on attempt number " + "#{guess_number}".colorize(:white) + "!"
     puts "\n"
   end
 
   def input_error(msg)
-    layout("* * * Input Error! * * *", ' ')
-    layout("Your input contained #{msg}.", ' ')
+    puts "* * * Input Error! * * *".center(80, " ").colorize(:red).blink
+    puts "Your input contained #{msg}.".center(80," ").colorize(:red).blink
   end
 
 end
