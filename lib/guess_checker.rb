@@ -1,32 +1,34 @@
 class GuessChecker
+  attr_reader :guess, :sequence
 
-  attr_reader :guess
-
-  def initialize(guess_test, sequence)
-    @guess_test = guess_test
+  def initialize(guess, sequence)
+    @guess    = guess
     @sequence = sequence
   end
 
   def matches_found
-    matched_items = (0..3).select {|index| @guess_test[index] == @sequence[index]}
-    puts "\n\tYou correctly matched #{matched_items.length} letter(s)."
+    (0..3).select {|index| guess[index] == sequence[index]}.length
   end
 
-  def correct_letters
-    # when testing, skip over any matched item
-    correct_letter_count = 0
-    correct_letter_count += 1 if @sequence.include? @guess_test[0]
-    correct_letter_count += 1 if @sequence.include? @guess_test[1]
-    correct_letter_count += 1 if @sequence.include? @guess_test[2]
-    correct_letter_count += 1 if @sequence.include? @guess_test[3]
-    puts "\tYou have #{correct_letter_count} correct letters in incorrect positions."
+  def correct_color
+    matches      = 0
+    dup_sequence = sequence.dup
+
+    guess.each do |color|
+      if dup_sequence.include? color
+        matches += 1
+        color_index = dup_sequence.index(color)
+        dup_sequence.delete_at(color_index)
+      end
+    end
+
+    matches
   end
 
   def feedback
-    puts "You guessed --> '#{@guess_test.join}''"
-    matches_found
+    puts "You guessed --> '#{guess.join}''"
+    puts "\n\tYou correctly matched #{matches_found} letter(s)."
     puts "\n"
-    correct_letters
+    puts "\tYou have #{correct_color - matches_found} correct colors in incorrect positions."
   end
-
 end
