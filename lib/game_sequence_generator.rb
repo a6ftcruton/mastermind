@@ -1,5 +1,4 @@
 class SequenceGenerator
-
   def self.random_letter
     letters = ['r', 'g', 'b', 'y']
     letters.sample
@@ -11,5 +10,4 @@ class SequenceGenerator
     4.times { @sequence << random_letter }
     @sequence
   end
-
 end

@@ -1,44 +1,38 @@
-require_relative 'game_sequence_generator'
-require_relative 'guess_checker'
-require_relative 'game_instructions'
-require_relative 'message_printer'
-require_relative 'hi_scores'
-require 'json'
-
 class Game
   attr_reader :guess, :sequence, :printer
 
   def initialize
     @guess_count      = 0
+    @cli              = CLI.new
     @printer          = MessagePrinter.new
-    # @hi_scores      = HiScores.new
     @hi_scores_file   = File.open('../../hi_scores.json', 'a+')
     @guess            = []
     @sequence         = []
   end
 
-  def start
-    printer.greet_player
-    printer.command_options
-    get_input
-  end
+  # def start
+  #   printer.greet_player
+  #   printer.command_options
+  #   get_input
+  # end
 
-  def get_input
-    printf "\nEnter command: "
-    input = gets.downcase.chomp
-    case input
-    when 'i', 'instructions' then show_instructions
-    when 'q', 'quit' then printer.quit
-    when 'p', 'play' then initiate_game
-    # ADD HI SCORES OPTION
-    else
-      printer.command_options
-      get_input
-    end
-  end
+  # def get_input
+  #   printf "\nEnter command: "
+  #   input = gets.downcase.chomp
+  #   case input
+  #   when 'i', 'instructions' then show_instructions
+  #   when 'q', 'quit' then printer.quit
+  #   when 'p', 'play' then initiate_game
+  #   # ADD HI SCORES OPTION
+  #   else
+  #     printer.command_options
+  #     get_input
+  #   end
+  # end
 
   def get_input_after_win
-    printf "\nWhat would you like to do now? "
+    print "What would you like to do now?"
+    printer.command_options
     input = gets.downcase.chomp
     case input
     when 'q', 'quit' then printer.quit
@@ -54,6 +48,7 @@ class Game
   def show_instructions
     @show_instructions = GameInstructions.load_instructions
     @show_instructions
+    # ??? necessary duplication?
     printer.command_options
     get_input
   end
@@ -85,7 +80,7 @@ class Game
       printer.win_message(total_guesses, total_time)
       get_user_name # STORE FOR HI SCORES...
       printer.command_options
-      get_input
+      get_input_after_win
       hi_scores
       # hi_scores.jsoe
     else
@@ -143,36 +138,7 @@ class Game
     # give options = print hi-scores or quit
   end
 
-  def hi_scores
-    file = '../../hi_scores.json'
-    File.open(file, 'a') do |file|
-      # file.write(@player)
-      # file.write(@elapsed_time)
-      # file.write(@guess_count)
-      file.puts(hi_scores_info)
-    end
-  end
-
-def hi_scores_data
-  [
-    {:player => @player},
-    {:time => @elapsed_time},
-    {:number_of_guesses => @guess_count}
-  ].to_json
 end
 
-def print_high_scores
-  # parse scores and print top 10 to terminal
-  parsed_scores     = JSON.parse('../../hi_scores.json')
-  hi_score_time     = parsed_scores.sort_by { |hash| hash["time"].to_i }
-  hi_score_guesses  = parsed_scores.sort_by { |has| has["number_of_guesses"].to_i}
-  puts "Here are the top 3 scores for fastest time: "
-  puts hi_score_time[0..3]
-  puts "Here are the top 3 scores for fewest guess: "
-  puts hi_score_guesses[0..3]
-end
-
-end
-
-game = Game.new
-game.start
+# game = Game.new
+# game.start

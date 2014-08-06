@@ -1,5 +1,3 @@
-require 'colorize'
-
 class GuessChecker
   attr_reader :guess, :sequence
 
