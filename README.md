@@ -1,4 +1,5 @@
 To do:
+  -remove secret code
   -refactor guess_checker
         -feedback method to printer class
         -convert_guess method to printer class

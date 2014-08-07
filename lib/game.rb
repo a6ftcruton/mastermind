@@ -27,7 +27,7 @@ class Game
   end
 
   def run
-    puts "\n\t\t\t" + "( #{sequence} )"  # <= get rid of this when testing is complete!
+    printer.show_sequence_for_dev_purposes(sequence)
     prompt_for_guess
     case
     when quit?
@@ -37,9 +37,7 @@ class Game
     when correct_guess?
       @guess_count += 1
       @time_finish = Time.new
-      total_guesses = "\n\tTotal Guesses " + " #{@guess_count}".rjust(40, '.')
-      total_time = "\n\tElapsed time " + " #{elapsed_time} second(s).".rjust(40, '.')
-      printer.win_message(total_guesses, total_time)
+      printer.win_message(@guess_count, @elapsed_time)
       get_user_name
       HiScores.write_hi_scores(@game)
       get_input_after_win
@@ -53,11 +51,9 @@ class Game
   end
 
   def get_user_name
-    printf "Please enter your first name: "
-    @player = gets.chomp.upcase
-    thank_player = "\nThanks for playing #{@player}!".upcase
-    thank_player.each_char {|c| print c.colorize(:white); sleep 0.1}
-    puts "\n\n"
+    printer.prompt_for_user_name
+    player = gets.chomp.upcase
+    printer.thank_player(player)
   end
 
   def get_input_after_win

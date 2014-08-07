@@ -44,5 +44,4 @@ class GuessChecker
     puts "\n"
     puts "\tYou have " + "#{correct_color - matches_found}".colorize(:white) + " correct colors in incorrect positions."
   end
-
 end

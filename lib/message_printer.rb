@@ -21,10 +21,6 @@ class MessagePrinter
     puts "\n\t Use " + "(q)".colorize(:white) + "uit at any point to exit the game."
   end
 
-  def request_guess
-    puts "\nEnter your guess: "
-  end
-
   def command_options
     puts "-".center(80, '-').colorize(:white)
     puts "You may enter any of the following options:
@@ -33,13 +29,31 @@ class MessagePrinter
           \n " + "(q)".colorize(:white) + " = quit"
   end
 
-  def options_after_win
-    print "What would you like to do now?"
-    puts "\n\t (p)lay again, (q)uit, or view hi (s)cores?"
+  def request_guess
+    puts "\nEnter your guess: "
+  end
+
+  def show_sequence_for_dev_purposes(sequence)
+    puts "\n\t\t\t" + "( #{sequence} )"
+  end
+
+  def thank_player(player)
+    thank_player = "\nThanks for playing #{player}!".upcase
+    thank_player.each_char {|c| print c.colorize(:white); sleep 0.1}
+    puts "\n\n"
+  end
+
+  def prompt_for_user_name
+    printf "Please enter your first name: "
   end
 
   def quit
     puts "\nGoodbye! Thanks for playing MASTERMIND!"
+  end
+
+  def options_after_win
+    print "What would you like to do now?"
+    puts "\n\t (p)lay again, (q)uit, or view hi (s)cores?"
   end
 
   def win_message(guesses, time)
@@ -47,8 +61,8 @@ class MessagePrinter
     layout('~')
     puts" CORRECT! ".center(80, '~*~').colorize(:white)
     layout('~')
-    puts guesses
-    puts time
+    puts "\n\tTotal Guesses " + " #{guesses}".rjust(40, '.')
+    puts "\n\tElapsed time " + " #{time} second(s).".rjust(40, '.')
     layout('~')
     puts "~".center(80, '~*~')
   end

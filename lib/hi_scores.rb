@@ -20,9 +20,9 @@ require 'json'
     end
 
     def self.print_hi_scores
-      read_file        = File.read('./data/hi_scores.json')
-      parsed_scores    = JSON.parse([read_file].to_json)
-      hi_score_time     = parsed_scores.sort_by { |hash| hash["time"].to_i }
+      read_file           = File.read('./data/hi_scores.json')
+      parsed_scores       = JSON.parse([read_file].to_json)
+      hi_score_time       = parsed_scores.sort_by { |hash| hash["time"].to_i }
       # hi_score_guesses  = parsed_scores.sort_by { |has| has["number_of_guesses"].to_i}
       puts "Here are the top 3 scores for fastest time: "
       puts hi_score_time
