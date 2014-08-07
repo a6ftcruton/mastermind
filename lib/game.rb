@@ -37,10 +37,11 @@ class Game
     when correct_guess?
       @guess_count += 1
       @time_finish = Time.new
-      printer.win_message(@guess_count, @elapsed_time)
+      printer.win_message(guess_count, elapsed_time)
       get_user_name
       HiScores.write_hi_scores(@game)
       get_input_after_win
+      @cli.run
     else
       @guess_count += 1
       printer.incorrect_guess(@guess_count)
