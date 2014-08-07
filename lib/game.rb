@@ -34,7 +34,7 @@ class Game
   end
 
   def run
-    printer.show_sequence_for_dev_purposes(sequence)
+    #printer.show_sequence_for_dev_purposes(sequence)
     prompt_for_guess
     case
     when quit?

@@ -23,10 +23,7 @@ require 'json'
       read_file           = File.read('./data/hi_scores.json')
       parsed_scores       = JSON.parse([read_file].to_json)
       hi_score_time       = parsed_scores.sort_by { |hash| hash["time"].to_i }
-      # hi_score_guesses  = parsed_scores.sort_by { |has| has["number_of_guesses"].to_i}
       puts "Here are the top 3 scores for fastest time: "
       puts hi_score_time
-      # puts "Here are the top 3 scores for fewest guess: "
-      # puts hi_score_guesses[0..3]
     end
   end
