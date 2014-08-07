@@ -1,5 +1,12 @@
 class Game
-  attr_reader :guess, :sequence, :printer, :player, :game, :guess_count, :elapsed_time
+  attr_reader :guess_count,
+              :cli,
+              :printer,
+              :guess,
+              :sequence,
+              :game,
+              :player,
+              :elapsed_time
 
   def initialize
     @guess_count      = 0
@@ -41,7 +48,7 @@ class Game
       get_user_name
       HiScores.write_hi_scores(@game)
       get_input_after_win
-      @cli.run
+      cli.run
     else
       @guess_count += 1
       printer.incorrect_guess(@guess_count)
@@ -53,7 +60,7 @@ class Game
 
   def get_user_name
     printer.prompt_for_user_name
-    player = gets.chomp.upcase
+    @player = gets.chomp.upcase
     printer.thank_player(player)
   end
 

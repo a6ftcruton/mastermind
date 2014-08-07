@@ -95,11 +95,12 @@ class MessagePrinter
     "\n\nAny color can be used more than once or not at all." +
     "\n\te.g." +
 
-    "\n\t\t\u25A9".colorize(:red) + "  " + "\u25A9".colorize(:red) + "  " + "\u25A9".colorize(:red) + "  " + "\u25A9".colorize(:red) +
-    "[r r r r]" +
+    "\n\n\t\t\u25A9".colorize(:red) + "  " + "\u25A9".colorize(:red) + "  " + "\u25A9".colorize(:red) + "  " + "\u25A9".colorize(:red) +
+    "\t[r r r r]" +
+    "\n\n" +
     "\n\t\t\u25A9".colorize(:red) + "  " + "\u25A9".colorize(:green) + "  " + "\u25A9".colorize(:blue) + "  " + "\u25A9".colorize(:yellow) +
-    "[r g b y]" +
-    "\n\nEach time you submit a guess, you will receive feedback about the following: " +
+    "\t[r g b y]" +
+    "\n\n\nEach time you submit a guess, you will receive feedback about the following: " +
     "\n\n\t-how many colors you have matched in the correct location" +
     "\n\n\t-how many correct colors you have chosen but put in the wrong location" +
     "\n\nUse this information to make a better guess each time." +

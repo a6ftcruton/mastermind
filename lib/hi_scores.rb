@@ -15,7 +15,7 @@ require 'json'
     def self.write_hi_scores(game)
       file = './data/hi_scores.json'
       File.open(file, 'a') do |file|
-        file.write( hi_scores_data(game) )
+        file.write( "#{hi_scores_data(game)},\n" )
       end
     end
 

@@ -1,2 +1,2 @@
-[{"player":"HULK HOGAN"},{"time":15},{"number_of_guesses":5}][{:player=>"JANGUS JENKINS"}, {:time=>1}, {:number_of_guesses=>1}][{:player=>"HAMMER"}, {:time=>13}, {:number_of_guesses=>9}][{:player=>"SHANTA CRAWS"}, {:time=>8}, {:number_of_guesses=>6}]
-[{"player":null},{"time":2},{"number_of_guesses":1}][{"player":null},{"time":6},{"number_of_guesses":3}][{"player":null},{"time":3},{"number_of_guesses":5}][{"player":null},{"time":2},{"number_of_guesses":1}]
+[{"player":"YOKO ONO"},{"time":1},{"number_of_guesses":1}],
+[{"player":"HULK HOGAN"},{"time":15},{"number_of_guesses":5}],
