@@ -1,5 +1,5 @@
 class Game
-  attr_reader :guess, :sequence, :printer
+  attr_reader :guess, :sequence, :printer, :player, :game, :guess_count, :elapsed_time
 
   def initialize
     @guess_count      = 0
@@ -8,47 +8,12 @@ class Game
     @hi_scores_file   = File.open('../../hi_scores.json', 'a+')
     @guess            = []
     @sequence         = []
-  end
-
-  # def start
-  #   printer.greet_player
-  #   printer.command_options
-  #   get_input
-  # end
-
-  # def get_input
-  #   printf "\nEnter command: "
-  #   input = gets.downcase.chomp
-  #   case input
-  #   when 'i', 'instructions' then show_instructions
-  #   when 'q', 'quit' then printer.quit
-  #   when 'p', 'play' then initiate_game
-  #   # ADD HI SCORES OPTION
-  #   else
-  #     printer.command_options
-  #     get_input
-  #   end
-  # end
-
-  def get_input_after_win
-    print "What would you like to do now?"
-    printer.command_options
-    input = gets.downcase.chomp
-    case input
-    when 'q', 'quit' then printer.quit
-    when 'p', 'play' then initiate_game
-    when 's', 'scores' then show_high_scores
-    # ADD HI SCORES OPTION
-    else
-      printer.command_options
-      get_input
-    end
+    @player           = ""
+    @game             = self
   end
 
   def show_instructions
     @show_instructions = GameInstructions.load_instructions
-    @show_instructions
-    # ??? necessary duplication?
     printer.command_options
     get_input
   end
@@ -79,10 +44,9 @@ class Game
       total_time = "\n\tElapsed time " + " #{elapsed_time} second(s).".rjust(40, '.')
       printer.win_message(total_guesses, total_time)
       get_user_name # STORE FOR HI SCORES...
-      printer.command_options
+      #printer.command_options
+      HiScores.write_hi_scores(@game)
       get_input_after_win
-      hi_scores
-      # hi_scores.jsoe
     else
       @guess_count += 1
       printer.incorrect_guess(@guess_count)
@@ -91,6 +55,42 @@ class Game
       run
     end
   end
+
+  def get_user_name
+    printf "Please enter your first name: "
+    @player = gets.chomp.upcase
+    thank_player = "\nThanks for playing #{@player}!".upcase
+    thank_player.each_char {|c| print c.colorize(:white); sleep 0.1}
+    puts "\n\n"
+  end
+
+  def get_input_after_win
+    printer.options_after_win
+    input = gets.downcase.chomp
+    case input
+    when 'q', 'quit' then printer.quit
+    when 'p', 'play' then initiate_game
+    when 's', 'scores' then
+      printer.hi_scores_banner
+      HiScores.print_hi_scores 
+    else
+      printer.command_options
+      get_input
+    end
+  end
+
+  # def player
+  #   return @player
+  # end
+  #
+  # def self.elapsed_time
+  #   @elapsed_time
+  # end
+  #
+  # def self.guess_count
+  #   @guess_count
+  # end
+
 
   private
 
@@ -130,15 +130,5 @@ class Game
     guess == sequence
   end
 
-  def get_user_name
-    printf "Please enter your first name: "
-    @player = gets.chomp.upcase
-    thank_player = "\nThanks for playing #{@player}!".upcase
-    thank_player.each_char {|c| print c.colorize(:white).blink; sleep 0.1}
-    # give options = print hi-scores or quit
-  end
 
 end
-
-# game = Game.new
-# game.start

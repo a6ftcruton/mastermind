@@ -1,6 +1,7 @@
 require 'colorize'
 
 class MessagePrinter
+
   def layout(element, design=element)
     puts " "
     puts element.center(80, design)
@@ -29,8 +30,12 @@ class MessagePrinter
     puts "You may enter any of the following options:
           \n " + "(i)".colorize(:white) + " = instructions
           \n " + "(p)".colorize(:white) + " = play
-          \n " + "(q)".colorize(:white) + " = quit
-          \n " + "(s)".colorize(:white) + " = view high scores\n"
+          \n " + "(q)".colorize(:white) + " = quit"
+  end
+
+  def options_after_win
+    print "What would you like to do now?"
+    puts "\n\t (p)lay again, (q)uit, or view hi (s)cores?"
   end
 
   def quit
@@ -40,13 +45,12 @@ class MessagePrinter
   def win_message(guesses, time)
     puts "\n"
     layout('~')
-    puts" CORRECT! ".center(80, '~*~').colorize(:white).blink
+    puts" CORRECT! ".center(80, '~*~').colorize(:white)
     layout('~')
     puts guesses
     puts time
     layout('~')
     puts "~".center(80, '~*~')
-    layout('~')
   end
 
   def incorrect_guess(guess_number)
@@ -57,6 +61,12 @@ class MessagePrinter
   def input_error(msg)
     puts "* * * Input Error! * * *".center(80, " ").colorize(:red).blink
     puts "Your input contained #{msg}.".center(80," ").colorize(:red).blink
+  end
+
+  def hi_scores_banner
+    layout("* * * ")
+    layout('    H I   S C O R E S    ',"/\\" )
+    layout("* * * ")
   end
 
   def show_instructions
@@ -88,6 +98,6 @@ class MessagePrinter
     "\n\n\nEXITING THE GAME".colorize(:white) +
     "\n\nAt any time if you wish to exit the game, simply type (q)" +
     " and press enter. Winning the game also exits you automatically." +
-    "\n\n\n".center(100, '-')
+    "\n\n\n"
   end
 end

@@ -7,7 +7,6 @@ class CLI
   end
 
   def run
-    printer.greet_player
     printer.command_options
     until input == "q"
       printf "\nEnter command: "
@@ -21,15 +20,16 @@ class CLI
     case input
     when 'i', 'instructions'
       printer.show_instructions
+      run
     when 'q', 'quit'
       printer.quit
     when 'p', 'play'
       game = Game.new
       game.initiate_game
     when 's', 'scores'
-      print_high_scores
+      HiScores.print_high_scores
+      run
       puts 'Loading high scores...'
-      # ADD HI SCORES OPTION
     else
       printer.command_options
       run
