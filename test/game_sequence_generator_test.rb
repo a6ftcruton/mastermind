@@ -4,7 +4,6 @@ require 'minitest/pride'
 require_relative '../lib/game_sequence_generator'
 
 class SequenceGeneratorTest < Minitest::Test
-
   def test_it_returns_an_array
     sequence = SequenceGenerator.generate
     assert sequence.kind_of? Array
@@ -34,7 +33,4 @@ class SequenceGeneratorTest < Minitest::Test
     sequence = SequenceGenerator.generate
     assert_equal 4, sequence.length
   end
-
-
-
 end

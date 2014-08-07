@@ -7,13 +7,12 @@ class GuessChecker
   end
 
   def matches_found
-    (0..3).select {|index| guess[index] == sequence[index]}.length
+    ( 0..(sequence.length - 1) ).select {|index| guess[index] == sequence[index]}.length
   end
 
   def correct_color
     matches      = 0
     dup_sequence = sequence.dup
-
     guess.each do |color|
       if dup_sequence.include? color
         matches += 1
@@ -21,7 +20,6 @@ class GuessChecker
         dup_sequence.delete_at(color_index)
       end
     end
-
     matches
   end
 

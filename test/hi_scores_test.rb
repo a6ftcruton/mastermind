@@ -3,9 +3,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require_relative '../lib/hi_scores'
 
-
 class HiScoresTest < Minitest::Test
-
   def test_it_has_filename
     hiscores = HiScores.new('first-hi-scores.txt', 'a+')
     assert_equal hiscores.filename, 'first-hi-scores.txt'

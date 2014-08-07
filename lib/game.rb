@@ -5,17 +5,14 @@ class Game
     @guess_count      = 0
     @cli              = CLI.new
     @printer          = MessagePrinter.new
-    @hi_scores_file   = File.open('../../hi_scores.json', 'a+')
     @guess            = []
     @sequence         = []
-    @player           = ""
     @game             = self
   end
 
   def show_instructions
     @show_instructions = GameInstructions.load_instructions
     printer.command_options
-    get_input
   end
 
   def elapsed_time
@@ -43,8 +40,7 @@ class Game
       total_guesses = "\n\tTotal Guesses " + " #{@guess_count}".rjust(40, '.')
       total_time = "\n\tElapsed time " + " #{elapsed_time} second(s).".rjust(40, '.')
       printer.win_message(total_guesses, total_time)
-      get_user_name # STORE FOR HI SCORES...
-      #printer.command_options
+      get_user_name
       HiScores.write_hi_scores(@game)
       get_input_after_win
     else
@@ -72,27 +68,15 @@ class Game
     when 'p', 'play' then initiate_game
     when 's', 'scores' then
       printer.hi_scores_banner
-      HiScores.print_hi_scores 
+      HiScores.print_hi_scores
     else
       printer.command_options
-      get_input
     end
   end
 
-  # def player
-  #   return @player
-  # end
-  #
-  # def self.elapsed_time
-  #   @elapsed_time
-  # end
-  #
-  # def self.guess_count
-  #   @guess_count
-  # end
-
 
   private
+
 
   def prompt_for_guess
     printer.request_guess
@@ -129,6 +113,4 @@ class Game
   def correct_guess?
     guess == sequence
   end
-
-
 end

@@ -6,7 +6,6 @@ class SequenceGenerator
 
   def self.generate
     @sequence = []
-    # 4.times { @sequence << random_letter }
     4.times { @sequence << random_letter }
     @sequence
   end

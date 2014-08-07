@@ -1,4 +1,10 @@
 To do:
+  -refactor guess_checker
+        -feedback method to printer class
+        -convert_guess method to printer class
+  -clean up hi scores file
+  -get sort to work
+  -make hi scores output look better
 
 EXTENSIONS:
   -record tracking - save player scores to file

@@ -26,10 +26,6 @@ class CLI
     when 'p', 'play'
       game = Game.new
       game.initiate_game
-    when 's', 'scores'
-      HiScores.print_high_scores
-      run
-      puts 'Loading high scores...'
     else
       printer.command_options
       run
